@@ -1,932 +1,351 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Joshua Sawiris - Revival & Fire of God</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            background: #000;
-            color: #fff;
-            overflow-x: hidden;
-        }
-
-        /* Header */
-        .header {
-            background: linear-gradient(135deg, #ff6b35, #f7931e);
-            padding: 15px 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(255, 107, 53, 0.5);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #fff;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .logo img {
-            height: 60px;
-            filter: invert(1);
-            transition: transform 0.3s ease;
-        }
-
-        .logo img:hover {
-            transform: scale(1.05);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-        }
-
-        .nav-links a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            padding: 10px 20px;
-            border-radius: 25px;
-            background: rgba(255,255,255,0.1);
-        }
-
-        .nav-links a:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateY(-2px);
-        }
-
-        /* Hero Section */
-        .hero {
-            margin-top: 80px;
-            height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
-                        radial-gradient(circle at center, #ff6b35 0%, #000 70%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        #fireCanvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100% !important;
-            height: 100% !important;
-            z-index: 0;
-            opacity: 0.7;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="%23ff6b35" opacity="0.3"><animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/></circle></svg>') repeat;
-            animation: float 20s infinite linear;
-        }
-
-        @keyframes float {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-
-        .hero-content {
-            z-index: 1;
-            max-width: 800px;
-            padding: 0 20px;
-        }
-
-        .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            background: linear-gradient(45deg, #ff6b35, #ffd700);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes glow {
-            from { text-shadow: 0 0 20px #ff6b35; }
-            to { text-shadow: 0 0 30px #ffd700, 0 0 40px #ff6b35; }
-        }
-
-        .hero p {
-            font-size: 1.5rem;
-            margin-bottom: 30px;
-            opacity: 0.9;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 15px 40px;
-            background: linear-gradient(45deg, #ff6b35, #f7931e);
-            color: #fff;
-            text-decoration: none;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.6);
-        }
-
-        /* About Section */
-        .about {
-            padding: 100px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .about h2 {
-            font-size: 3rem;
-            margin-bottom: 30px;
-            background: linear-gradient(45deg, #ffd700, #ff6b35);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-top: 50px;
-        }
-
-        .about-card {
-            background: rgba(255, 107, 53, 0.1);
-            padding: 30px;
-            border-radius: 15px;
-            border: 1px solid rgba(255, 107, 53, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .about-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
-        }
-
-        .about-card h3 {
-            color: #ff6b35;
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-        }
-
-        .who-we-are, .vision-section, .pillars-section, .values-section {
-            max-width: 800px;
-            margin: 40px auto;
-            text-align: center;
-        }
-
-        .who-we-are h3, .vision-section h3, .pillars-section h3, .values-section h3 {
-            font-size: 2rem;
-            color: #ff6b35;
-            margin-bottom: 20px;
-        }
-
-        .who-we-are p, .vision-section p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 15px;
-            opacity: 0.9;
-        }
-
-        .vision-section ul {
-            list-style: none;
-            padding: 0;
-            margin: 20px 0;
-        }
-
-        .vision-section li {
-            font-size: 1.1rem;
-            margin: 10px 0;
-            padding: 10px;
-            background: rgba(255, 107, 53, 0.1);
-            border-radius: 10px;
-            border-left: 4px solid #ff6b35;
-        }
-
-        .pillar-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        .pillar {
-            background: rgba(255, 107, 53, 0.1);
-            padding: 25px;
-            border-radius: 15px;
-            border: 1px solid rgba(255, 107, 53, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .pillar:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.2);
-        }
-
-        .pillar h4 {
-            color: #ff6b35;
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-        }
-
-        .pillar p {
-            opacity: 0.9;
-            line-height: 1.6;
-        }
-
-        .values-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .value {
-            background: rgba(255, 107, 53, 0.05);
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 3px solid #ffd700;
-            font-size: 1rem;
-            line-height: 1.6;
-            transition: all 0.3s ease;
-        }
-
-        .value:hover {
-            background: rgba(255, 107, 53, 0.1);
-            transform: translateX(5px);
-        }
-
-        /* Testimonies Section */
-        .testimonies {
-            padding: 100px 20px;
-            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
-        }
-
-        .testimonies h2 {
-            text-align: center;
-            font-size: 3rem;
-            margin-bottom: 50px;
-            background: linear-gradient(45deg, #ffd700, #ff6b35);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .testimony-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .testimony-scroll {
-            display: flex;
-            gap: 30px;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            padding: 20px 0;
-            scrollbar-width: thin;
-            scrollbar-color: #ff6b35 #2d2d2d;
-        }
-
-        .testimony-scroll::-webkit-scrollbar {
-            height: 8px;
-        }
-
-        .testimony-scroll::-webkit-scrollbar-track {
-            background: #2d2d2d;
-            border-radius: 10px;
-        }
-
-        .testimony-scroll::-webkit-scrollbar-thumb {
-            background: #ff6b35;
-            border-radius: 10px;
-        }
-
-        .testimony-card {
-            min-width: 350px;
-            scroll-snap-align: center;
-            background: rgba(0,0,0,0.8);
-            border-radius: 20px;
-            padding: 30px;
-            border: 1px solid rgba(255, 107, 53, 0.3);
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .testimony-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(255, 107, 53, 0.3);
-            border-color: rgba(255, 107, 53, 0.6);
-        }
-
-        .testimony-image {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            margin: 0 auto 20px;
-            overflow: hidden;
-            border: 3px solid #ff6b35;
-            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
-        }
-
-        .testimony-text {
-            text-align: center;
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            color: #fff;
-            min-height: 100px;
-        }
-
-        .testimony-name {
-            text-align: center;
-            font-style: italic;
-            color: #ff6b35;
-            font-size: 1rem;
-            font-weight: bold;
-        }
-
-        .testimony-nav {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .testimony-nav button {
-            background: linear-gradient(45deg, #ff6b35, #f7931e);
-            color: #fff;
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1.5rem;
-        }
-
-        .testimony-nav button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
-        }
-
-        /* Contact Section */
-        .contact {
-            padding: 100px 20px;
-            text-align: center;
-            background: linear-gradient(135deg, #000, #1a1a1a);
-        }
-
-        .contact h2 {
-            font-size: 3rem;
-            margin-bottom: 30px;
-            background: linear-gradient(45deg, #ffd700, #ff6b35);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .contact-info {
-            max-width: 600px;
-            margin: 0 auto;
-            font-size: 1.2rem;
-            line-height: 2;
-        }
-
-        .contact-info a {
-            color: #ff6b35;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .contact-info a:hover {
-            color: #ffd700;
-        }
-
-        /* Social Links */
-        .social-links {
-            margin-top: 30px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .social-links a {
-            display: inline-flex;
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(45deg, #ff6b35, #f7931e);
-            border-radius: 50%;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 10px rgba(255, 107, 53, 0.3);
-        }
-
-        .social-links a:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.6);
-        }
-
-        .social-links svg {
-            width: 24px;
-            height: 24px;
-            fill: currentColor;
-        }
-
-        /* Testimony Images */
-        .testimony-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-        }
-
-        /* Footer */
-        footer {
-            background: #000;
-            padding: 30px 20px;
-            text-align: center;
-            border-top: 1px solid rgba(255, 107, 53, 0.3);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero p {
-                font-size: 1.2rem;
-            }
-            
-            .nav-links {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .testimony-carousel {
-                height: 600px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Joshua Sawiris – Fire of God | Glory City Nashville</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Experience revival, miracles, and the tangible presence of God with Joshua & Jenelle Sawiris at Glory City Nashville." />
+
+  <!-- Three.js -->
+  <script defer src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+
+  <style>
+    /* =====================
+       RESET & VARIABLES
+    ====================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange: #ff6b35;
+      --gold: #ffd700;
+      --dark: #000;
+      --max-width: 1200px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #000;
+      color: #fff;
+      font-size: clamp(15px, 1.1vw, 18px);
+      overflow-x: hidden;
+    }
+
+    img { max-width: 100%; height: auto; display: block; }
+
+    section { padding: clamp(70px, 8vw, 110px) 20px; }
+
+    h1, h2, h3, h4 { font-weight: 800; }
+
+    /* =====================
+       HEADER / NAV
+    ====================== */
+    header {
+      position: fixed;
+      inset: 0 0 auto 0;
+      background: linear-gradient(135deg, var(--orange), #f7931e);
+      z-index: 1000;
+      box-shadow: 0 2px 15px rgba(255,107,53,.5);
+    }
+
+    .nav-container {
+      max-width: var(--max-width);
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+    }
+
+    .logo img { height: 56px; filter: invert(1); }
+
+    .nav-toggle {
+      display: none;
+      font-size: 2rem;
+      cursor: pointer;
+      color: #fff;
+    }
+
+    nav {
+      display: flex;
+      gap: 14px;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.15);
+      transition: .25s;
+    }
+
+    nav a:hover { background: rgba(255,255,255,.3); }
+
+    @media (max-width: 900px) {
+      .nav-toggle { display: block; }
+      nav {
+        position: absolute;
+        inset: 100% 0 auto 0;
+        flex-direction: column;
+        background: #000;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height .35s ease;
+      }
+      nav.open { max-height: 400px; }
+      nav a { width: 90%; text-align: center; }
+    }
+
+    /* =====================
+       HERO
+    ====================== */
+    .hero {
+      min-height: 100svh;
+      padding-top: 120px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      position: relative;
+      background: radial-gradient(circle at center, rgba(255,107,53,.25), #000 70%);
+    }
+
+    #fireCanvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .hero-content { position: relative; z-index: 1; max-width: 820px; }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      background: linear-gradient(45deg, var(--orange), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+      text-shadow: 0 0 25px var(--orange);
+    }
+
+    .hero p {
+      font-size: clamp(1.1rem, 3vw, 1.5rem);
+      opacity: .9;
+      margin-bottom: 34px;
+    }
+
+    .cta {
+      display: inline-block;
+      padding: 16px 44px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 1.15rem;
+      background: linear-gradient(45deg, var(--orange), #f7931e);
+      color: #fff;
+      text-decoration: none;
+      box-shadow: 0 8px 22px rgba(255,107,53,.45);
+      transition: .3s;
+    }
+
+    .cta:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(255,107,53,.7); }
+
+    /* =====================
+       CONTENT SECTIONS
+    ====================== */
+    .container { max-width: var(--max-width); margin: auto; }
+
+    h2 {
+      font-size: clamp(2.2rem, 5vw, 3rem);
+      background: linear-gradient(45deg, var(--gold), var(--orange));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 28px;
+    }
+
+    .card {
+      background: rgba(255,107,53,.08);
+      border: 1px solid rgba(255,107,53,.3);
+      border-radius: 16px;
+      padding: 28px;
+      transition: .3s;
+    }
+
+    .card:hover { transform: translateY(-6px); box-shadow: 0 15px 35px rgba(255,107,53,.35); }
+
+    /* =====================
+       TESTIMONIES
+    ====================== */
+    .testimonies { background: #111; }
+
+    .scroll {
+      display: flex;
+      gap: 22px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .testimony {
+      scroll-snap-align: center;
+      min-width: clamp(280px, 80vw, 360px);
+      background: #000;
+      padding: 26px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,107,53,.35);
+    }
+
+    .avatar {
+      width: 140px;
+      height: 140px;
+      margin: auto auto 18px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid var(--orange);
+    }
+
+    /* =====================
+       CONTACT
+    ====================== */
+    .contact a { color: var(--orange); text-decoration: none; }
+
+    footer {
+      text-align: center;
+      padding: 26px 20px;
+      border-top: 1px solid rgba(255,107,53,.3);
+    }
+
+    /* =====================
+       ACCESSIBILITY
+    ====================== */
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+  </style>
 </head>
+
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="nav-container">
-            <div class="logo">
-                <a href="https://www.glorycitynashville.com/" target="_blank">
-                    <img src="GloryCityBlack-transparent.svg" alt="Glory City Nashville Logo">
-                </a>
-            </div>
-            <nav class="nav-links">
-                <a href="https://www.glorycitynashville.com/give/" target="_blank">Give</a>
-                <a href="https://www.glorycitynashville.com/contact/" target="_blank">Contact</a>
-                <a href="https://www.glorycitynashville.com/events/" target="_blank">Events</a>
-                <a href="https://www.glorycitynashville.com/" target="_blank">GCN</a>
-                <a href="https://www.glorycitynashville.com/about/" target="_blank">About</a>
-            </nav>
-        </div>
-    </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>The Fire of God is Falling</h1>
-            <p>Experience the tangible presence of God through signs, wonders, and miracles</p>
-            <a href="#testimonies" class="cta-button">Witness the Miracles</a>
-        </div>
-        <!-- Three.js canvas for fire effect -->
-        <canvas id="fireCanvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; background: radial-gradient(circle at center, rgba(255, 107, 53, 0.1) 0%, rgba(0,0,0,0) 70%);"></canvas>
-    </section>
+<header>
+  <div class="nav-container">
+    <div class="logo">
+      <a href="https://www.glorycitynashville.com" target="_blank">
+        <img src="GloryCityBlack-transparent.svg" alt="Glory City Nashville" />
+      </a>
+    </div>
+    <div class="nav-toggle" id="navToggle">☰</div>
+    <nav id="nav">
+      <a href="https://www.glorycitynashville.com/give/">Give</a>
+      <a href="https://www.glorycitynashville.com/events/">Events</a>
+      <a href="https://www.glorycitynashville.com/contact/">Contact</a>
+      <a href="https://www.glorycitynashville.com/about/">About</a>
+    </nav>
+  </div>
+</header>
 
-    <!-- About Section -->
-    <section class="about">
-        <h2>Called to Ignite Revival</h2>
-        
-        <div style="text-align: center; margin: 40px 0;">
-            <img src="Josh and Janelle.webp" alt="Joshua and Jenelle Sawiris" style="max-width: 100%; max-height: 400px; border-radius: 15px; box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);">
-        </div>
-        
-        <p style="text-align: center; max-width: 800px; margin: 0 auto 50px; font-size: 1.2rem; line-height: 1.8;">
-            <strong>Joshua and Jenelle Sawiris</strong> serve as the senior Pastors of Glory City Nashville. They have been married for 24 years and in ministry for over two decades, with their three daughters serving alongside them. Commissioned by our advisory board and under the spiritual covering of Dr. Katherine and Tom Ruonala and Prophet James Goll, the Sawiris family was sent to Nashville, Tennessee, in 2024 after receiving multiple prophetic confirmations to ignite revival and awaken hearts across the nation.
-        </p>
-        
-        <div class="who-we-are">
-            <h3>Who We Are</h3>
-            <p>We are a five-fold apostolic Church family passionate about raising up, equipping, empowering, and releasing people into the call of God upon their lives.</p>
-            <p>At Glory City Nashville, we believe that through Jesus' sacrifice, the full penalty of sin, death, and sickness has been paid. As sons and daughters, we are called not only to hear God's voice but to walk in obedience to it.</p>
-            <p>When we prioritize intimacy and live from our identity as His beloved, the knowledge and love of God increases across the earth.</p>
-        </div>
-        
-        <div class="about-content">
-            <div class="about-card">
-                <h3>🔥 The Fire of God</h3>
-                <p>Our gatherings are marked by the tangible presence and dynamic power of God. As we honor Him and seek His face, He manifests His glory among us.</p>
-            </div>
-            
-            <div class="about-card">
-                <h3>⚡ Signs & Wonders</h3>
-                <p>We expect signs and wonders to follow those who believe – healings, miracles, prophecy, words of knowledge, impartation, and deliverance.</p>
-            </div>
-            
-            <div class="about-card">
-                <h3>🏠 Miracle Meetings</h3>
-                <p>Monthly Miracle Meetings and Encounter Gatherings where family, worship, and discipleship thrive through the power of the Holy Spirit.</p>
-            </div>
-        </div>
-        
-        <div class="vision-section">
-            <h3>Where We're Going</h3>
-            <p>Our vision extends beyond Saturday night gatherings. We regularly break bread as a family and host:</p>
-            <ul>
-                <li>Monthly Miracle Meetings</li>
-                <li>Encounter Gatherings</li>
-                <li>Family Focus Gatherings in homes and neighborhoods across the city</li>
-            </ul>
-        </div>
-        
-        <div class="pillars-section">
-            <h3>Our Pillars</h3>
-            <div class="pillar-grid">
-                <div class="pillar">
-                    <h4>Intimacy</h4>
-                    <p>drawing near to God in worship and personal devotion</p>
-                </div>
-                <div class="pillar">
-                    <h4>Identity</h4>
-                    <p>living from our position as beloved sons and daughters</p>
-                </div>
-                <div class="pillar">
-                    <h4>Increase</h4>
-                    <p>releasing His kingdom on earth through obedience and faith</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="values-section">
-            <h3>Our Values</h3>
-            <div class="values-grid">
-                <div class="value">Presence – we prioritize encountering God above all else</div>
-                <div class="value">Life with the Holy Spirit – walking daily in His power and friendship</div>
-                <div class="value">Connection – family, unity, and authentic community</div>
-                <div class="value">The word of God</div>
-                <div class="value">Worship</div>
-            </div>
-        </div>
-    </section>
+<section class="hero">
+  <canvas id="fireCanvas"></canvas>
+  <div class="hero-content">
+    <h1>The Fire of God Is Falling</h1>
+    <p>Experience revival, miracles, and the tangible presence of God</p>
+    <a class="cta" href="#testimonies">Witness the Miracles</a>
+  </div>
+</section>
 
-    <!-- Testimonies Section -->
-    <section class="testimonies" id="testimonies">
-        <h2>Testimonies of His Glory</h2>
-        <div class="testimony-container">
-            <div class="testimony-scroll" id="testimonyScroll">
-                <div class="testimony-card">
-                    <div class="testimony-image">
-                        <img src="JoshSawiris.jpg" alt="Joshua Sawiris" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <p class="testimony-text">"I came to the Miracle Meeting with chronic pain that doctors couldn't heal. That night, Joshua laid hands on me and I felt the fire of God consume the pain. I've been pain-free for 6 months!"</p>
-                    <p class="testimony-name">- Sarah M.</p>
-                </div>
-                
-                <div class="testimony-card">
-                    <div class="testimony-image">
-                        <img src="GCN.jpg" alt="Glory City Nashville" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <p class="testimony-text">"My marriage was falling apart. Through the prophetic ministry at Glory City, God spoke directly to our situation. Today, our marriage is stronger than ever. God truly restores!"</p>
-                    <p class="testimony-name">- The Johnson Family</p>
-                </div>
-                
-                <div class="testimony-card">
-                    <div class="testimony-image">
-                        <img src="GCN.svg" alt="Glory City Logo" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <p class="testimony-text">"During worship, I saw a vision of angels filling the room. Joshua called out words of knowledge that were 100% accurate. The presence of God was so thick, you could feel it!"</p>
-                    <p class="testimony-name">- Michael T.</p>
-                </div>
-                
-                <div class="testimony-card">
-                    <div class="testimony-image">
-                        <img src="JoshSawiris.jpg" alt="Joshua Sawiris" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <p class="testimony-text">"My daughter was diagnosed with a rare disease. At the Encounter Gathering, the entire church prayed. The next doctor's visit showed no trace of the disease. God is still the Healer!"</p>
-                    <p class="testimony-name">- Jennifer K.</p>
-                </div>
-                
-                <div class="testimony-card">
-                    <div class="testimony-image">
-                        <img src="Josh and Janelle.webp" alt="Joshua and Jenelle Sawiris" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <p class="testimony-text">"The prophetic words spoken over my life have already come to pass. This ministry operates in such accuracy and love. God is truly moving through His servants!"</p>
-                    <p class="testimony-name">- David R.</p>
-                </div>
-                
-                <div class="testimony-card">
-                    <div class="testimony-image">
-                        <img src="GCN.jpg" alt="Glory City Nashville" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <p class="testimony-text">"I was delivered from depression after years of bondage. The freedom I found in this place is indescribable. The fire of God brings true deliverance!"</p>
-                    <p class="testimony-name">- Amanda L.</p>
-                </div>
-            </div>
-            
+<section>
+  <div class="container">
+    <h2>Called to Ignite Revival</h2>
+    <div class="grid">
+      <div class="card">🔥 Tangible presence of God</div>
+      <div class="card">⚡ Signs, wonders & healing</div>
+      <div class="card">🏠 Monthly miracle gatherings</div>
+    </div>
+  </div>
+</section>
 
-        </div>
-    </section>
+<section id="testimonies" class="testimonies">
+  <h2>Testimonies of His Glory</h2>
+  <div class="scroll container">
+    <div class="testimony">
+      <div class="avatar"><img src="JoshSawiris.jpg" alt="Joshua Sawiris" /></div>
+      <p>“I was healed instantly — the fire of God touched my body.”</p>
+    </div>
+    <div class="testimony">
+      <div class="avatar"><img src="GCN.jpg" alt="Glory City Nashville" /></div>
+      <p>“Our marriage was restored through prophetic ministry.”</p>
+    </div>
+  </div>
+</section>
 
-    <!-- Contact Section -->
-    <section class="contact">
-        <h2>Connect With Us</h2>
-        <div class="contact-info">
-            <p><strong>Joshua Sawiris</strong></p>
-            <p>📧 <a href="mailto:glorycityrevival@gmail.com">glorycityrevival@gmail.com</a></p>
-            <p>📞 <a href="tel:615-419-6288">615-419-6288</a></p>
-            <p>📍 308 Jordan Road Franklin, Tennessee 37067</p>
-            
-            <div class="social-links">
-                <a href="https://www.facebook.com/joshua.sawiris/" target="_blank" title="Facebook">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                    </svg>
-                </a>
-                <a href="https://www.instagram.com/glorycitynashville" target="_blank" title="Instagram">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                    </svg>
-                </a>
-                <a href="https://www.facebook.com/profile.php?id=61563422243938" target="_blank" title="GCN Facebook">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                    </svg>
-                </a>
-            </div>
-        </div>
-    </section>
+<section class="contact">
+  <h2>Connect With Us</h2>
+  <p>Email: <a href="mailto:glorycityrevival@gmail.com">glorycityrevival@gmail.com</a></p>
+  <p>Phone: <a href="tel:6154196288">615‑419‑6288</a></p>
+</section>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2026 Glory City Nashville. All rights reserved. | Igniting Revival Across the Nation</p>
-    </footer>
+<footer>
+  © 2026 Glory City Nashville — Igniting Revival
+</footer>
 
-    <!-- Three.js Library -->
-    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
-    
-    <script>
-        // Testimony Auto-scroll
-        let scrollDirection = 1; // 1 for right, -1 for left
-        let isPaused = false;
-        
-        function autoScrollTestimonies() {
-            const scrollContainer = document.getElementById('testimonyScroll');
-            
-            if (!isPaused && scrollContainer) {
-                scrollContainer.scrollLeft += scrollDirection * 1; // Scroll speed
-                
-                // Check if reached the end
-                if (scrollContainer.scrollLeft >= scrollContainer.scrollWidth - scrollContainer.clientWidth) {
-                    scrollDirection = -1; // Reverse direction to left
-                } else if (scrollContainer.scrollLeft <= 0) {
-                    scrollDirection = 1; // Reverse direction to right
-                }
-            }
-            
-            requestAnimationFrame(autoScrollTestimonies);
-        }
+<script>
+  // Mobile nav
+  navToggle.onclick = () => nav.classList.toggle('open');
 
-        // Start auto-scroll when DOM is loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            autoScrollTestimonies();
-            
-            // Pause auto-scroll on hover
-            const testimonyScroll = document.getElementById('testimonyScroll');
-            if (testimonyScroll) {
-                testimonyScroll.addEventListener('mouseenter', () => {
-                    isPaused = true;
-                });
+  // Fire effect (optimized)
+  if (window.THREE) {
+    const canvas = document.getElementById('fireCanvas');
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
+    renderer.setSize(innerWidth, innerHeight);
 
-                testimonyScroll.addEventListener('mouseleave', () => {
-                    isPaused = false;
-                });
-            }
-        });
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, innerWidth / innerHeight, 0.1, 1000);
+    camera.position.z = 5;
 
-        // Smooth scrolling for CTA button
-        document.querySelector('.cta-button').addEventListener('click', function(e) {
-            e.preventDefault();
-            document.querySelector('#testimonies').scrollIntoView({
-                behavior: 'smooth'
-            });
-        });
+    const geometry = new THREE.BufferGeometry();
+    const count = 400;
+    const pos = new Float32Array(count * 3);
+    for (let i = 0; i < count; i++) {
+      pos[i * 3] = (Math.random() - .5) * 8;
+      pos[i * 3 + 1] = Math.random() * 5 - 2;
+      pos[i * 3 + 2] = (Math.random() - .5) * 8;
+    }
+    geometry.setAttribute('position', new THREE.BufferAttribute(pos, 3));
 
-        // Three.js Fire Effect
-        document.addEventListener('DOMContentLoaded', function() {
-            // Check if Three.js is loaded
-            if (typeof THREE !== 'undefined') {
-                initFireEffect();
-            } else {
-                // Fallback animation if Three.js fails to load
-                console.log('Three.js not loaded, using fallback animation');
-                const canvas = document.getElementById('fireCanvas');
-                const ctx = canvas.getContext('2d');
-                
-                // Set canvas size
-                canvas.width = canvas.offsetWidth;
-                canvas.height = canvas.offsetHeight;
-                
-                // Create fire particles for fallback
-                const particles = [];
-                const particleCount = 100;
-                
-                for (let i = 0; i < particleCount; i++) {
-                    particles.push({
-                        x: Math.random() * canvas.width,
-                        y: Math.random() * canvas.height,
-                        size: Math.random() * 4 + 2,
-                        speedY: Math.random() * 2 + 1,
-                        speedX: (Math.random() - 0.5) * 2,
-                        color: `rgba(${Math.floor(Math.random() * 100 + 155)}, ${Math.floor(Math.random() * 50)}, ${Math.floor(Math.random() * 20)}, 0.8)`
-                    });
-                }
-                
-                function fallbackAnimate() {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    
-                    particles.forEach(p => {
-                        // Move particle
-                        p.y -= p.speedY;
-                        p.x += p.speedX;
-                        
-                        // Reset if out of bounds
-                        if (p.y < 0) {
-                            p.y = canvas.height;
-                            p.x = Math.random() * canvas.width;
-                        }
-                        
-                        if (p.x < 0 || p.x > canvas.width) {
-                            p.speedX = -p.speedX;
-                        }
-                        
-                        // Draw particle
-                        ctx.fillStyle = p.color;
-                        ctx.beginPath();
-                        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                        ctx.fill();
-                    });
-                    
-                    requestAnimationFrame(fallbackAnimate);
-                }
-                
-                fallbackAnimate();
-            }
-        });
+    const material = new THREE.PointsMaterial({ color: 0xff6b35, size: .12, transparent: true, opacity: .85 });
+    const points = new THREE.Points(geometry, material);
+    scene.add(points);
 
-        function initFireEffect() {
-            const canvas = document.getElementById('fireCanvas');
-            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
-            renderer.setSize(canvas.width, canvas.height);
-            renderer.setPixelRatio(window.devicePixelRatio);
+    function animate() {
+      requestAnimationFrame(animate);
+      const a = geometry.attributes.position.array;
+      for (let i = 0; i < count; i++) {
+        a[i * 3 + 1] += 0.02;
+        if (a[i * 3 + 1] > 5) a[i * 3 + 1] = -2;
+      }
+      geometry.attributes.position.needsUpdate = true;
+      renderer.render(scene, camera);
+    }
+    animate();
 
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(75, canvas.width / canvas.height, 0.1, 1000);
-            camera.position.z = 5;
+    addEventListener('resize', () => {
+      camera.aspect = innerWidth / innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(innerWidth, innerHeight);
+    });
+  }
+</script>
 
-            // Create fire particles using sprite-based approach for better circle rendering
-            const particleCount = 500;
-            const particles = new THREE.BufferGeometry();
-            const positions = new Float32Array(particleCount * 3);
-            const colors = new Float32Array(particleCount * 3);
-            const sizes = new Float32Array(particleCount);
-
-            for (let i = 0; i < particleCount; i++) {
-                positions[i * 3] = (Math.random() - 0.5) * 10;
-                positions[i * 3 + 1] = Math.random() * 5 - 2;
-                positions[i * 3 + 2] = (Math.random() - 0.5) * 10;
-
-                colors[i * 3] = Math.random() * 0.5 + 0.5; // Red
-                colors[i * 3 + 1] = Math.random() * 0.3; // Green
-                colors[i * 3 + 2] = Math.random() * 0.1; // Blue
-
-                sizes[i] = Math.random() * 0.5 + 0.1;
-            }
-
-            particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-            particles.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-            particles.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
-
-            // Create a canvas texture for circular particles
-            const createCircleTexture = () => {
-                const canvas = document.createElement('canvas');
-                canvas.width = 64;
-                canvas.height = 64;
-                const context = canvas.getContext('2d');
-                
-                // Create radial gradient for smooth circle
-                const gradient = context.createRadialGradient(
-                    canvas.width / 2, canvas.height / 2, 0,
-                    canvas.width / 2, canvas.height / 2, canvas.width / 2
-                );
-                gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
-                gradient.addColorStop(0.8, 'rgba(255, 255, 255, 0.5)');
-                gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-                
-                context.fillStyle = gradient;
-                context.beginPath();
-                context.arc(canvas.width / 2, canvas.height / 2, canvas.width / 2, 0, Math.PI * 2);
-                context.fill();
-                
-                return new THREE.CanvasTexture(canvas);
-            };
-
-            const particleMaterial = new THREE.PointsMaterial({
-                size: 0.4,
-                vertexColors: true,
-                transparent: true,
-                opacity: 0.9,
-                blending: THREE.AdditiveBlending,
-                depthWrite: false,
-                sizeAttenuation: true,
-                map: createCircleTexture(),
-                alphaMap: createCircleTexture(),
-                alphaTest: 0.5
-            });
-
-            const particleSystem = new THREE.Points(particles, particleMaterial);
-            scene.add(particleSystem);
-
-            // Animation loop
-            function animate() {
-                requestAnimationFrame(animate);
-
-                const positions = particleSystem.geometry.attributes.position.array;
-                for (let i = 0; i < particleCount; i++) {
-                    // Move particles upward
-                    positions[i * 3 + 1] += 0.01 + Math.random() * 0.02;
-
-                    // Reset particles that go too high
-                    if (positions[i * 3 + 1] > 5) {
-                        positions[i * 3 + 1] = -2;
-                        positions[i * 3] = (Math.random() - 0.5) * 10;
-                        positions[i * 3 + 2] = (Math.random() - 0.5) * 10;
-                    }
-
-                    // Add some random movement
-                    positions[i * 3] += (Math.random() - 0.5) * 0.02;
-                    positions[i * 3 + 2] += (Math.random() - 0.5) * 0.02;
-                }
-
-                particleSystem.geometry.attributes.position.needsUpdate = true;
-
-                // Rotate the system slightly
-                particleSystem.rotation.y += 0.001;
-
-                renderer.render(scene, camera);
-            }
-
-            animate();
-
-            // Handle window resize
-            window.addEventListener('resize', function() {
-                camera.aspect = canvas.width / canvas.height;
-                camera.updateProjectionMatrix();
-                renderer.setSize(canvas.width, canvas.height);
-            });
-        }
-    </script>
 </body>
 </html>
