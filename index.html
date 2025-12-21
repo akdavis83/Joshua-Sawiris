@@ -569,6 +569,7 @@ transition: none !important;
     <!-- Header -->
     <header class="header">
         <div class="nav-container">
+            <div class="nav-toggle" id="navToggle">☰</div>
             <div class="logo">
                 <a href="https://www.glorycitynashville.com/" target="_blank">
                     <img src="GloryCityBlack-transparent.svg" alt="Glory City Nashville Logo">
@@ -762,7 +763,15 @@ transition: none !important;
     <footer>
         <p>&copy; 2026 Glory City Nashville. All rights reserved. | Igniting Revival Across the Nation</p>
     </footer>
+<script>
+const toggle = document.getElementById('navToggle');
+const nav = document.querySelector('.nav-links');
 
+
+toggle.addEventListener('click', () => {
+nav.classList.toggle('open');
+});
+</script>
     <!-- Three.js Library -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
     
@@ -876,7 +885,7 @@ transition: none !important;
             const canvas = document.getElementById('fireCanvas');
             const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
             renderer.setSize(canvas.width, canvas.height);
-            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
 
             const scene = new THREE.Scene();
             const camera = new THREE.PerspectiveCamera(75, canvas.width / canvas.height, 0.1, 1000);
