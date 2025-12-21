@@ -485,25 +485,84 @@
             border-top: 1px solid rgba(255, 107, 53, 0.3);
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero p {
-                font-size: 1.2rem;
-            }
-            
-            .nav-links {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .testimony-carousel {
-                height: 600px;
-            }
-        }
+      /* ============================
+.nav-toggle {
+display: block;
+color: #fff;
+}
+
+
+.nav-links {
+position: absolute;
+top: 100%;
+right: 0;
+background: #000;
+width: 100%;
+flex-direction: column;
+align-items: center;
+max-height: 0;
+overflow: hidden;
+transition: max-height 0.3s ease;
+}
+
+
+.nav-links.open {
+max-height: 400px;
+}
+
+
+.nav-links a {
+width: 90%;
+text-align: center;
+}
+}
+
+
+/* ============================
+TESTIMONIES
+============================ */
+
+
+.testimony-card {
+min-width: clamp(280px, 80vw, 360px);
+}
+
+
+.testimony-scroll {
+-webkit-overflow-scrolling: touch;
+}
+
+
+@media (hover: none) {
+.testimony-scroll {
+animation: none;
+}
+}
+
+
+/* ============================
+ABOUT / GRID FIXES
+============================ */
+
+
+.about-content,
+.pillar-grid,
+.values-grid {
+grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+
+/* ============================
+REDUCED MOTION
+============================ */
+
+
+@media (prefers-reduced-motion: reduce) {
+* {
+animation: none !important;
+transition: none !important;
+}
+}
     </style>
 </head>
 <body>
