@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joshua Sawiris | Glory City Nashville</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: #c5a059;
+            --dark: #1a1a1a;
+            --light: #f9f9f9;
+        }
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+        h1, h2, h3, .serif { 
+            font-family: 'Cormorant Garamond', serif; 
+        }
+        .hero-bg {
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url('599090286_719222931244513_8991653759056367560_n.jpg');
+            background-size: cover;
+            background-position: center 25%;
+            background-attachment: fixed;
+        }
+        @media (max-width: 1024px) {
+            .hero-bg {
+                background-attachment: scroll; /* Fixes mobile blur/scaling issues */
+                background-position: center center;
+            }
+        }
+        .profile-circle {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent);
+            transition: transform 0.3s ease;
+        }
+        .profile-circle:hover {
+            transform: scale(1.1);
+        }
+        .nav-link {
+            position: relative;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            transition: all 0.3s;
+            color: var(--dark);
+        }
+        .nav-link:hover {
+            color: var(--accent);
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        #mobile-menu.active {
+            display: flex;
+        }
+        .featured-photo-container {
+            opacity: 0;
+            transform: translateX(-100px) rotate(-45deg);
+        }
+        .unique-border {
+            border: 8px solid white;
+            box-shadow: 15px 15px 40px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        .unique-border::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 1px solid var(--accent);
+            margin: 10px;
+            pointer-events: none;
+        }
+        .btn-gold {
+            background-color: var(--accent);
+            color: white;
+            padding: 12px 30px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            font-weight: 700;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        .btn-gold:hover {
+            background-color: #b38f4d;
+            box-shadow: 0 10px 20px rgba(197, 160, 89, 0.3);
+            transform: translateY(-2px);
+        }
+        .video-card {
+            background: white;
+            padding: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-radius: 4px;
+        }
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);}
+            40% {transform: translateY(-10px) translateX(-50%);}
+            60% {transform: translateY(-5px) translateX(-50%);}
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav id="top" class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 px-6 md:px-12 py-4 flex justify-between items-center">
+        <div class="flex items-center space-x-4">
+            <a href="https://www.glorycitynashville.com/" target="_blank">
+                <img src="JoshSawiris.jpg" alt="Joshua Sawiris" class="profile-circle">
+            </a>
+            <span class="text-xl font-light tracking-widest uppercase serif">Joshua Sawiris</span>
+        </div>
+        
+        <div class="hidden lg:flex space-x-10 text-[10px] uppercase tracking-[0.2em]">
+            <a href="https://www.glorycitynashville.com/about/" class="nav-link">About</a>
+            <a href="https://www.glorycitynashville.com/events/" class="nav-link">Events</a>
+            <a href="https://www.youtube.com/@GloryCityNashvilleRevival" class="nav-link">Watch</a>
+            <a href="https://www.glorycitynashville.com/" class="nav-link">GCN</a>
+            <a href="https://www.glorycitynashville.com/contact/" class="nav-link">Contact</a>
+        </div>
+
+        <div class="flex items-center space-x-4">
+            <a href="https://www.glorycitynashville.com/give/" class="btn-gold">Give</a>
+            <!-- Mobile Menu Toggle -->
+            <button id="menu-toggle" class="lg:hidden text-gray-800 p-2">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-white z-[60] hidden flex-col items-center justify-center space-y-8 text-xl uppercase tracking-[0.2em] serif">
+        <button id="menu-close" class="absolute top-6 right-6 p-4">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+        <a href="https://www.glorycitynashville.com/about/" class="hover:text-[#c5a059] mobile-link">About</a>
+        <a href="https://www.glorycitynashville.com/events/" class="hover:text-[#c5a059] mobile-link">Events</a>
+        <a href="https://www.youtube.com/@GloryCityNashvilleRevival" class="hover:text-[#c5a059] mobile-link">Watch</a>
+        <a href="https://www.glorycitynashville.com/" class="hover:text-[#c5a059] mobile-link">GCN</a>
+        <a href="https://www.glorycitynashville.com/contact/" class="hover:text-[#c5a059] mobile-link">Contact</a>
+        <a href="https://www.glorycitynashville.com/give/" class="text-[#c5a059] font-bold mobile-link">Give</a>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="hero-bg h-screen flex flex-col items-center justify-center text-center text-white px-6">
+        <h1 class="text-6xl md:text-8xl lg:text-9xl mb-6 font-light">Joshua Sawiris</h1>
+        <p class="text-lg md:text-2xl font-light tracking-widest max-w-3xl border-t border-b border-white/30 py-6">
+            Carrying a Strong Prophetic and Miracle Anointing, <br class="hidden md:block"> Spreading the Fires of Revival Internationally.
+        </p>
+        <div class="mt-12 space-y-4 md:space-y-0 md:space-x-6">
+            <a href="https://www.youtube.com/@GloryCityNashvilleRevival" class="btn-gold">Watch Broadcast</a>
+            <a href="https://www.glorycitynashville.com/contact/" class="inline-block border border-white text-white px-8 py-3 uppercase tracking-widest text-xs hover:bg-white hover:text-black transition">Get Involved</a>
+        </div>
+        <div class="scroll-indicator">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section class="py-32 px-6 md:px-12 lg:px-24 bg-white">
+        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
+            <div class="lg:w-1/2 relative">
+                <div class="absolute -top-10 -left-10 w-40 h-40 bg-[#c5a059]/10 rounded-full -z-10"></div>
+                <img src="601525652_2122616715231909_196918770989040161_n.jpg" alt="Joshua and Jenelle" class="unique-border w-full">
+            </div>
+            <div class="lg:w-1/2">
+                <div class="space-y-6 text-gray-600 leading-relaxed font-light text-lg">
+                    <p>
+                        Joshua and Jenelle Sawiris serve as the senior Pastors of Glory City Nashville. With over two decades of ministry and 24 years of marriage, they carry a five-fold apostolic calling that burns with passion for the presence of God.
+                    </p>
+                    <p>
+                        Commissioned by Dr. Katherine and Tom Ruonala and Prophet James Goll, they were sent to Nashville in 2024 to ignite revival and awaken hearts. Joshua carries a strong prophetic and miracle anointing, dedicated to raising up a generation that walks in intimacy with God and releases His kingdom on earth through signs, wonders, and the power of the Holy Spirit.
+                    </p>
+                    <p>
+                        We are a family passionate about raising up, equipping, empowering, and releasing people into the call of God upon their lives. At Glory City Nashville, we move together in faith, knowing the Lord shows up every time we gather.
+                    </p>
+                </div>
+                <div class="mt-12">
+                    <a href="https://www.glorycitynashville.com/about/" class="btn-gold">More About My Story</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Scrolling Photos Section -->
+    <section class="py-32 bg-gray-50 overflow-hidden">
+        <div class="max-w-6xl mx-auto px-6 space-y-40">
+            
+            <!-- PK -->
+            <div class="featured-item flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2 photo-box">
+                    <img src="PK.jpg" alt="PK" class="unique-border w-full h-[350px] md:h-[500px] object-cover">
+                </div>
+                <div class="md:w-1/2">
+                    <h3 class="text-4xl mb-4 italic">Apostolic Covering</h3>
+                    <p class="text-gray-500 font-light leading-relaxed">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    </p>
+                </div>
+            </div>
+
+            <!-- LH -->
+            <div class="featured-item flex flex-col md:flex-row-reverse items-center gap-12">
+                <div class="md:w-1/2 photo-box">
+                    <img src="LH.jpg" alt="LH" class="unique-border w-full h-[350px] md:h-[500px] object-cover">
+                </div>
+                <div class="md:w-1/2 text-right">
+                    <h3 class="text-4xl mb-4 italic">Miracle Ministry</h3>
+                    <p class="text-gray-500 font-light leading-relaxed">
+                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </p>
+                </div>
+            </div>
+
+            <!-- DM -->
+            <div class="featured-item flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2 photo-box">
+                    <img src="DM.jpg" alt="DM" class="unique-border w-full h-[350px] md:h-[500px] object-cover">
+                </div>
+                <div class="md:w-1/2">
+                    <h3 class="text-4xl mb-4 italic">Prophetic Wisdom</h3>
+                    <p class="text-gray-500 font-light leading-relaxed">
+                        Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris.
+                    </p>
+                </div>
+            </div>
+
+            <!-- JG -->
+            <div class="featured-item flex flex-col md:flex-row-reverse items-center gap-12">
+                <div class="md:w-1/2 photo-box">
+                    <img src="JG.jpg" alt="JG" class="unique-border w-full h-[350px] md:h-[500px] object-cover">
+                </div>
+                <div class="md:w-1/2 text-right">
+                    <h3 class="text-4xl mb-4 italic">Revival Fire</h3>
+                    <p class="text-gray-500 font-light leading-relaxed">
+                        Integer tempus convallis augue. Etiam ut neque. Vivamus eget nibh. Etiam cursus leo vel metus. Nulla facilisi. Aenean nec eros. Vestibulum ante ipsum primis in faucibus.
+                    </p>
+                </div>
+            </div>
+
+            <!-- KR -->
+            <div class="featured-item flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2 photo-box">
+                    <img src="KR.jpg" alt="KR" class="unique-border w-full h-[350px] md:h-[500px] object-cover">
+                </div>
+                <div class="md:w-1/2">
+                    <h3 class="text-4xl mb-4 italic">Spiritual Legacy</h3>
+                    <p class="text-gray-500 font-light leading-relaxed">
+                        Maecenas sed diam eget risus varius blandit sit amet non magna. Vestibulum id ligula porta felis euismod semper. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Additional Photos Gallery -->
+    <section class="py-24 px-6 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl text-center mb-16 serif italic">Life in the Spirit</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                <div class="overflow-hidden h-64"><img src="Hug.jpg" class="w-full h-full object-cover hover:scale-110 transition duration-500" alt="Gallery 1"></div>
+                <div class="overflow-hidden h-64"><img src="J1.jpg" class="w-full h-full object-cover hover:scale-110 transition duration-500" alt="Gallery 2"></div>
+                <div class="overflow-hidden h-64"><img src="J2.jpg" class="w-full h-full object-cover hover:scale-110 transition duration-500" alt="Gallery 3"></div>
+                <div class="overflow-hidden h-64"><img src="Knees.jpg" class="w-full h-full object-cover hover:scale-110 transition duration-500" alt="Gallery 4"></div>
+                <div class="overflow-hidden h-64"><img src="Prayer1.jpg" class="w-full h-full object-cover hover:scale-110 transition duration-500" alt="Gallery 5"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimony Videos -->
+    <section class="py-32 bg-gray-900 text-white px-6">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-5xl text-center mb-20 serif italic">Testimony Videos</h2>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="video-card bg-gray-800 border-none">
+                    <video controls class="w-full rounded shadow-lg">
+                        <source src="1.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <p class="mt-4 text-center text-sm tracking-widest uppercase font-light">The Power of God Manifested</p>
+                </div>
+                <div class="video-card bg-gray-800 border-none">
+                    <video controls class="w-full rounded shadow-lg">
+                        <source src="2.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <p class="mt-4 text-center text-sm tracking-widest uppercase font-light">Revival in Nashville</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Family Photo Section -->
+    <section class="py-24 bg-white">
+        <div class="max-w-5xl mx-auto px-6 text-center">
+            <img src="Family.jpg" alt="The Sawiris Family" class="unique-border w-full mb-8">
+            <h2 class="text-3xl serif italic text-gray-400">The Sawiris Family</h2>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white py-20 border-t border-gray-100 px-6">
+        <div class="max-w-6xl mx-auto text-center">
+            <div class="flex flex-col items-center space-y-8">
+                <div class="text-3xl font-light tracking-widest uppercase serif">Joshua Sawiris</div>
+                
+                <div class="flex space-x-6 text-xl text-gray-400">
+                    <a href="https://www.facebook.com/joshua.sawiris/" class="hover:text-[#c5a059] transition"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+                    <a href="https://www.instagram.com/glorycitynashville" class="hover:text-[#c5a059] transition"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+                </div>
+
+                <div class="text-[10px] uppercase tracking-[0.3em] text-gray-400">
+                    © 2026 Joshua Sawiris Ministries. All Rights Reserved.
+                </div>
+
+                <div class="pt-8 border-t border-gray-100 w-full flex justify-center items-center space-x-2 text-sm">
+                    <a href="#top" class="font-semibold text-[#c5a059] hover:opacity-70">Joshua Sawiris</a>
+                    <span class="text-gray-300">|</span>
+                    <a href="https://www.glorycitynashville.com/" target="_blank" class="font-semibold text-[#c5a059] hover:opacity-70">Glory City Nashville</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const menuClose = document.getElementById('menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('flex');
+            document.body.classList.toggle('overflow-hidden');
+        }
+
+        menuToggle.addEventListener('click', toggleMenu);
+        menuClose.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+        // Intersection Observer to trigger anime.js animations
+        const observerOptions = {
+            threshold: 0.2
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = entry.target;
+                    
+                    // Specific animation for featured photos
+                    if (target.classList.contains('featured-item')) {
+                        const photo = target.querySelector('.photo-box');
+                        const text = target.querySelector('div:not(.photo-box)');
+                        
+                        anime({
+                            targets: photo,
+                            translateX: [-200, 0],
+                            rotate: [-90, 0],
+                            opacity: [0, 1],
+                            duration: 2000,
+                            easing: 'easeOutElastic(1, .6)'
+                        });
+
+                        anime({
+                            targets: text,
+                            translateX: [100, 0],
+                            opacity: [0, 1],
+                            duration: 1500,
+                            delay: 500,
+                            easing: 'easeOutQuart'
+                        });
+
+                        observer.unobserve(target);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Target all featured items
+        document.querySelectorAll('.featured-item').forEach(item => {
+            // Set initial state for animation
+            const photo = item.querySelector('.photo-box');
+            const text = item.querySelector('div:not(.photo-box)');
+            photo.style.opacity = 0;
+            text.style.opacity = 0;
+            
+            observer.observe(item);
+        });
+
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
